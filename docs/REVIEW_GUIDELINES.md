@@ -6,9 +6,18 @@ Use this checklist before adding or updating a marketplace plugin in this reposi
 
 - `id`, `version`, `kind`, `scope`, `displayName`, and `description` are present
 - `compatibility.versionRange` matches tested Cerebr versions
-- permissions are minimal
+- permissions are minimal and resource-scoped unless there is a compatibility reason not to be
+- `activationEvents` are narrow and intentional
 - `background` packages set `requiresExtension: true`
 - `install.packageUrl` points at a versioned `plugin.json`
+
+## Contribution review
+
+- declarative packages use the smallest contribution surface that solves the problem
+- `promptFragments` and `requestPolicies` are scoped correctly
+- page-only contributions stay in `scope = "page"`
+- shell-only contributions stay in `scope = "shell"`
+- shell execute actions are safe and predictable
 
 ## Runtime review
 

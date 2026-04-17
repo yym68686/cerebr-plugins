@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node ./scripts/check-registry.mjs"
+    "check": "node ./scripts/check-registry.mjs",
+    "sync:cerebr": "node ./scripts/sync-cerebr-fallback.mjs",
+    "check:cerebr-sync": "node ./scripts/sync-cerebr-fallback.mjs --check"
   }
 }

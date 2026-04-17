@@ -7,17 +7,26 @@ This repository is curated. Plugins are added by review, not by automatic self-s
 - plugin goal and user value
 - supported scope: `page`, `shell`, `prompt`, or `background`
 - requested permissions and why each one is needed
+- activation strategy and why those `activationEvents` are appropriate
 - compatibility range
 - installable package folder
 - screenshots or a short demo for UI-affecting plugins
+
+## Current preferred package baseline
+
+- `schemaVersion = 2`
+- explicit `activationEvents`
+- resource-scoped permissions such as `page:selection:read`, `shell:input:write`, or `bridge:send:shell`
+- declarative packages use `contributions` when possible
+- remote script packages are self-contained
 
 ## Acceptance bar
 
 - clear user value
 - limited and defensible permissions
-- stable behavior under current Cerebr runtime
+- bounded activation and runtime behavior
 - no dependency on private host internals
-- script plugins must be self-contained
+- script packages are self-contained
 - package passes `npm run check`
 
 ## Recommended starting point

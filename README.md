@@ -2,7 +2,7 @@
 
 Curated plugin registry for Cerebr.
 
-This repository is intended to back the Cerebr marketplace with reviewed plugin packages that can be fetched and installed from a remote registry.
+This repository is the source of truth for the official reviewed marketplace registry and reviewed plugin packages.
 
 ## Repository layout
 
@@ -19,36 +19,26 @@ cerebr-plugins/
 
 ## What this repository is for
 
-- Host reviewed marketplace plugins
-- Publish a stable `plugin-registry.json`
-- Keep plugin packages versioned
-- Give Cerebr a remote source that can be updated without shipping a full app release
+- host reviewed marketplace plugins
+- publish a stable `plugin-registry.json`
+- keep plugin packages versioned
+- give Cerebr a remote source that can update without shipping a full app release
 
-## What this repository is not for
+## Runtime contract baseline
 
-- Unreviewed arbitrary third-party remote code
-- Developer-mode local sideloading
-- Built-in plugins that only live inside the main Cerebr repository
+The current reviewed package baseline is the refactored plugin runtime:
 
-## GitHub Pages
+- manifest `schemaVersion = 1` and `schemaVersion = 2` are accepted
+- new packages should prefer `schemaVersion = 2`
+- declarative packages should prefer `contributions`
+- reviewed packages should declare explicit `activationEvents`
+- registry entries may include `activationEvents` and `contributionTypes`
 
-Serve this repository with GitHub Pages from the branch root.
-
-Expected registry URL:
-
-```text
-https://yym68686.github.io/cerebr-plugins/plugin-registry.json
-```
-
-The current Cerebr marketplace code is configured to use that URL as the curated remote registry, with a bundled local fallback.
-
-## Important packaging rule for script plugins
+## Packaging rule for script plugins
 
 Remote marketplace script packages must be self-contained.
 
-Do not import Cerebr host internals using relative paths into the main Cerebr repository, because remote packages are loaded from this repository's origin, not from the Cerebr app origin.
-
-If you need a helper such as `definePlugin`, bundle it locally inside this repository or inside the plugin package itself. The shared helper for reviewed script plugins lives at [runtime/define-plugin.js](./runtime/define-plugin.js).
+Do not import Cerebr host internals using relative paths into the main Cerebr repository. If you need a helper such as `definePlugin`, bundle it locally inside the package or use [runtime/define-plugin.js](./runtime/define-plugin.js).
 
 ## Development
 
@@ -61,17 +51,24 @@ That command validates:
 - `plugin-registry.json`
 - every referenced `plugin.json`
 - package existence for every `install.packageUrl`
-- basic script entry existence for script plugins
+- registry/package id and version alignment
+- v2 activation/contribution metadata
+
+## Sync bundled fallback into the main app repo
+
+After updating the official registry or any reviewed plugin package here, sync the bundled fallback snapshot in the main Cerebr repository:
+
+```bash
+npm run sync:cerebr
+```
+
+That mirrors these paths into `../cerebr/statics/`:
+
+- `plugin-registry.json`
+- `plugins/**`
+- `runtime/**`
 
 ## Related repositories
 
-- Main app: `Cerebr`
-- Starter template: `cerebr-plugin-template`
-
-## Current reviewed plugins
-
-- `official.prompt.concise-reply`
-- `official.prompt.translation-tone`
-- `official.page.explain-selection`
-- `official.shell.reasoning-retry`
-- `official.page.article-focus`
+- main app: `Cerebr`
+- starter template: `cerebr-plugin-template`
