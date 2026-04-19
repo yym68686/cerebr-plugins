@@ -44,6 +44,7 @@ Do not import Cerebr host internals using relative paths into the main Cerebr re
 
 ```bash
 npm run check
+npm run check:upstream
 ```
 
 That command validates:
@@ -53,6 +54,8 @@ That command validates:
 - package existence for every `install.packageUrl`
 - registry/package id and version alignment
 - v2 activation/contribution metadata
+
+`npm run check:upstream` inspects tracked third-party upstream repositories and alerts when a reviewed package is behind a newer upstream tag. It does not auto-publish those updates.
 
 ## Sync bundled fallback into the main app repo
 

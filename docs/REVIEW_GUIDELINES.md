@@ -39,3 +39,11 @@ Use this checklist before adding or updating a marketplace plugin in this reposi
 - run `npm run check`
 - verify GitHub Pages will expose `plugin-registry.json` and package files
 - if a plugin is being disabled, set `availability.status = "disabled"` and include a reason
+
+## Third-party upstream plugins
+
+- vendor reviewed third-party packages into this repository; do not point the official registry at an unreviewed user repository or release asset
+- keep the plugin id stable if the package has already shipped via sideload and you want marketplace install to take over the same stored package/settings
+- record the upstream repository and tracked tag in `plugins/<plugin-id>/UPSTREAM.json`
+- use `npm run check:upstream` or `.github/workflows/upstream-check.yml` to detect newer upstream tags
+- upstream checks are alert-only; new upstream tags still require a manual review before they are vendored here

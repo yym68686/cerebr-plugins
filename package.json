@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "check": "node ./scripts/check-registry.mjs",
+    "check:upstream": "node ./scripts/check-upstream-tracking.mjs",
     "sync:cerebr": "node ./scripts/sync-cerebr-fallback.mjs",
     "check:cerebr-sync": "node ./scripts/sync-cerebr-fallback.mjs --check"
   }
