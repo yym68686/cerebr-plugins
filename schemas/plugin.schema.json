@@ -571,6 +571,10 @@
         "icon": {
           "type": "string"
         },
+        "iconPlacement": {
+          "type": "string",
+          "enum": ["leading", "disclosure"]
+        },
         "title": {
           "type": "string"
         },

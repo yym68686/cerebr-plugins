@@ -209,6 +209,14 @@ function validateMenuItem(item, label, errors) {
     }
 
     assert(String(item.label ?? '').trim().length > 0, `${label}.label is required`, errors);
+    if (item.iconPlacement !== undefined) {
+        const iconPlacement = String(item.iconPlacement).trim();
+        assert(
+            iconPlacement === 'leading' || iconPlacement === 'disclosure',
+            `${label}.iconPlacement must be leading or disclosure`,
+            errors
+        );
+    }
     validateShellExecute(item.execute, `${label}.execute`, errors);
 }
 
